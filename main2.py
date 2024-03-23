@@ -5,7 +5,7 @@ from function import MT_Notch_filter
 from function import load_data
 
 # Abrindo o Arquivo
-Ex, Ey, Hx, Hy, Hz = load_data("example_1h.txt")
+Ex, Ey, Hx, Hy, Hz = load_data("Input/example_1h.txt")
 
 # Parametros
 fs = 128
@@ -24,9 +24,19 @@ Hyf = signal.filtfilt(b, a, Hy) # Primeiro Filtro - Sinal filtrado de 60 Hz
 Hzf = signal.filtfilt(b, a, Hz) # Primeiro Filtro - Sinal filtrado de 60 Hz
 
 # ----------------------------------------------------------------------------------
-title = ["Campo Elétrico - Eixo X", "Campo Elétrico - Eixo Y", "Campo Magnético - Eixo X", "Campo Magnético - Eixo Y", "Campo Magnético - Eixo Z" ]
-MT_Notch_filter(title[0], Ex, Exf, fs)
-MT_Notch_filter(title[1], Ey, Eyf, fs)
-MT_Notch_filter(title[2], Hx, Hxf, fs)
-MT_Notch_filter(title[3], Hy, Hyf, fs)
-MT_Notch_filter(title[4], Hz, Hzf, fs)
+# title = ["Campo Elétrico - Eixo X", "Campo Elétrico - Eixo Y", "Campo Magnético - Eixo X", "Campo Magnético - Eixo Y", "Campo Magnético - Eixo Z" ]
+# MT_Notch_filter(title[0], Ex, Exf, fs)
+# MT_Notch_filter(title[1], Ey, Eyf, fs)
+# MT_Notch_filter(title[2], Hx, Hxf, fs)
+# MT_Notch_filter(title[3], Hy, Hyf, fs)
+# MT_Notch_filter(title[4], Hz, Hzf, fs)
+
+# Salvando o dado filtrado em txt
+dado_filtrado = np.zeros((len(Ex), 5))
+dado_filtrado[:,0] = Exf
+dado_filtrado[:,1] = Eyf
+dado_filtrado[:,2] = Hxf
+dado_filtrado[:,3] = Hyf
+dado_filtrado[:,4] = Hzf
+
+np.savetxt('Outputs/Dado_Filtrado.txt', dado_filtrado, delimiter='      ', fmt='%.1f')
